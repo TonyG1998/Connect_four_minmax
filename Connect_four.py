@@ -17,15 +17,36 @@ def create_game_board(board):
 	y_start = 280
 
 	for i in range(0, 7):
+		y_start = 280
 		for j in range(0, 6):
 			board[x_start, y_start] = "None"
 			y_start-=33
 		x_start+=36
 
-def add_piece(pos, red_turn):
+def add_piece(pos, red_turn, board):
 	global black
 	global red
-	pygame.draw.circle(screen, red, pygame.mouse.get_pos(), 17)
+	x_start = 143
+	gap = 14
+	x_key = 0
+	y_key = 280
+	
+
+	for i in range(0, 7):
+		if abs(pos[0] - x_start) < gap:
+			x_key = x_start
+			break
+		x_start += 36
+
+	while(board[x_key, y_key] is not 'None'):
+		y_key -= 33
+
+	if(red_turn):
+		pygame.draw.circle(screen, red, (x_key, y_key), 17)
+		board[x_key, y_key] = 'Red'
+	else:
+		pygame.draw.circle(screen, black, (x_key, y_key), 17)
+		board[x_key, y_key] = 'Black'
 
 	return not red_turn
 #Checks to see if the user clicked in spot that would make them want to add a piece
@@ -33,7 +54,7 @@ def valid_click(pos):
 	 x_start = 143
 	 click = pos[0]
 	 #Diameter of the circle in the gap of the image 
-	 gap = 12
+	 gap = 14
 	 #Check if user clicked in the bounds of the board
 	 if((pos[0] < 125) or (pos[0] > 374)):
 	 	return False
@@ -59,7 +80,7 @@ red = (255, 0 ,0)
 game_board = {}
 create_game_board(game_board)
 
-
+print(game_board[179, 280])
 
 
 
@@ -71,7 +92,7 @@ while not done:
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			print(valid_click(pygame.mouse.get_pos()))
 			if valid_click(pygame.mouse.get_pos()):
-				red_turn = add_piece(pygame.mouse.get_pos(), red_turn)
+				red_turn = add_piece(pygame.mouse.get_pos(), red_turn, game_board)
 
 			
 	

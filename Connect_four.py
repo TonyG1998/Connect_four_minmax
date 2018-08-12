@@ -1,5 +1,6 @@
 import pygame
 import os
+import Logic
 
 #Function to recieve images and avoid cross-platform errors
 _image_library = {}
@@ -22,7 +23,7 @@ def create_game_board(board):
 			board[x_start, y_start] = "None"
 			y_start-=33
 		x_start+=36
-
+#Places the correct piece in the correct spot after the user clicks on the board
 def add_piece(pos, red_turn, board):
 	global black
 	global red
@@ -39,6 +40,9 @@ def add_piece(pos, red_turn, board):
 		x_start += 36
 
 	while(board[x_key, y_key] is not 'None'):
+		#If the column is full, dont change turns and return whoever turn it was and try again
+		if(y_key == 115):
+			return red_turn
 		y_key -= 33
 
 	if(red_turn):
@@ -67,13 +71,25 @@ def valid_click(pos):
 	 	x_start += 36
 
 	 return False
+#Checks the status of the game TODO
+def game_over_check(board):
+	global winner
+	
+	#Check rows verically for 4 in a row
+	vertical = Logic.vertical_check(board) 
+	if vertical != 'None':
+		winner = vertical
+		return True
 
+
+	
 pygame.init()
 screen = pygame.display.set_mode((502, 500))
 screen.fill((100,100,100))
 screen.blit(get_image('.\\images\\connect_four_gridpng.png'), (125, 100))
 done = False
 red_turn = True
+winner = 'None'
 
 black = (0, 0, 0)
 red = (255, 0 ,0)
@@ -95,7 +111,9 @@ while not done:
 				red_turn = add_piece(pygame.mouse.get_pos(), red_turn, game_board)
 
 			
-	
+	if game_over_check(game_board):
+		print('Game over ' + winner + ' wins')
+		done = True
 	
 
 

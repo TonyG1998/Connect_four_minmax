@@ -75,11 +75,18 @@ def valid_click(pos):
 def game_over_check(board):
 	global winner
 	
-	#Check rows verically for 4 in a row
+	#Check for pieces vertically for 4 in a row
 	vertical = Logic.vertical_check(board) 
 	if vertical != 'None':
 		winner = vertical
 		return True
+
+	#Check for pieces horizontally 
+	horizontal = Logic.horizontal_check(board)
+	if horizontal != 'None':
+		winner = horizontal
+		return True
+
 
 
 	
@@ -96,7 +103,7 @@ red = (255, 0 ,0)
 game_board = {}
 create_game_board(game_board)
 
-print(game_board[179, 280])
+
 
 
 
@@ -106,7 +113,7 @@ while not done:
 		if event.type == pygame.QUIT:
 			done = True
 		if event.type == pygame.MOUSEBUTTONDOWN:
-			print(valid_click(pygame.mouse.get_pos()))
+			
 			if valid_click(pygame.mouse.get_pos()):
 				red_turn = add_piece(pygame.mouse.get_pos(), red_turn, game_board)
 

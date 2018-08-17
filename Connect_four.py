@@ -89,7 +89,7 @@ def game_over_check(board):
 
 	#Check for pieces diagonally
 	diagonal = Logic.diagonal_check(board)
-	print('test')
+	
 	if diagonal != 'None':
 		winner = diagonal
 		return True

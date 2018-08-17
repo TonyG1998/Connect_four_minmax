@@ -88,7 +88,7 @@ def diagonal_check(board):
 		current_y = y_start + (vertical_increment * multiplier)
 		current_x = x_start + (horizontal_increment * multiplier)
 		
-		print(start_color)
+		
 
 		while(current_y <= 280 and current_x <= 359):
 			
@@ -119,7 +119,7 @@ def diagonal_check(board):
 		if (y_start == 115):
 			x_start += horizontal_increment
 		else:
-			print('x')
+			
 			y_start -= vertical_increment
 
 

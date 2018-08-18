@@ -1,6 +1,7 @@
 import pygame
 import os
 import Logic
+import time
 
 #Function to recieve images and avoid cross-platform errors
 _image_library = {}
@@ -93,6 +94,12 @@ def game_over_check(board):
 	if diagonal != 'None':
 		winner = diagonal
 		return True
+	#Checks if its a draw
+	draw = Logic.draw_check(board)
+
+	if draw != 'None':
+		winner = 'Nobody'
+		return True
 
 
 	
@@ -103,6 +110,9 @@ screen.blit(get_image('.\\images\\connect_four_gridpng.png'), (125, 100))
 done = False
 red_turn = True
 winner = 'None'
+
+font = pygame.font.SysFont("arial", 32)
+text = font.render("Test", True, (255, 0, 0))
 
 black = (0, 0, 0)
 red = (255, 0 ,0)
@@ -115,6 +125,14 @@ create_game_board(game_board)
 
 
 while not done:
+	screen.fill((100,100,100), (150, 10, 200, 90) )
+	
+	if red_turn:
+		text = font.render("Red turn", True, (200, 0, 0))
+	else:
+		text = font.render("Black turn", True, (0, 0, 0))
+
+
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			done = True
@@ -126,9 +144,18 @@ while not done:
 			
 	if game_over_check(game_board):
 		print('Game over ' + winner + ' wins')
+		if winner is "Red":
+			win_text = font.render(winner + " wins", True, (200, 0, 0))
+		elif winner is 'Black':
+			win_text = font.render(winner + " wins", True, (0, 0, 0))
+		else:
+			win_text = font.render("Its a draw", True, (50 ,50, 50))
+		screen.blit(win_text, (300, 300))
+		pygame.display.flip()
+		pygame.time.delay(1000)
 		done = True
 	
-
+	screen.blit(text, (180, 10))
 
 
 	pygame.display.flip()

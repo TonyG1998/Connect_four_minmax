@@ -120,6 +120,9 @@ def diagonal_check(board):
 			x_start += horizontal_increment
 		else:
 			
+
+
+
 			y_start -= vertical_increment
 
 
@@ -166,8 +169,15 @@ def diagonal_check(board):
 
 	return 'None'		
 
+def draw_check(board):
+	x_start = 143
+	y_start = 115
 
-	
+	for i in range(x_start, 360, 36):
+		if board[i, y_start] == 'None':
+			return 'None'
+
+	return 'Draw'
 
 
 

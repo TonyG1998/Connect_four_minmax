@@ -2,6 +2,7 @@ import pygame
 import os
 import Logic
 import time
+import Minmax_AI
 
 #Function to recieve images and avoid cross-platform errors
 _image_library = {}
@@ -126,11 +127,14 @@ create_game_board(game_board)
 
 while not done:
 	screen.fill((100,100,100), (150, 10, 200, 90) )
+
+	
 	
 	if red_turn:
 		text = font.render("Red turn", True, (200, 0, 0))
 	else:
 		text = font.render("Black turn", True, (0, 0, 0))
+		
 
 
 	for event in pygame.event.get():
@@ -138,8 +142,10 @@ while not done:
 			done = True
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			
-			if valid_click(pygame.mouse.get_pos()):
+			if valid_click(pygame.mouse.get_pos()) and red_turn:
 				red_turn = add_piece(pygame.mouse.get_pos(), red_turn, game_board)
+			
+
 
 			
 	if game_over_check(game_board):

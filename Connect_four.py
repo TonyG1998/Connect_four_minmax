@@ -1,8 +1,9 @@
+
 import pygame
 import os
 import Logic
 import time
-import Minmax_AI
+
 
 #Function to recieve images and avoid cross-platform errors
 _image_library = {}
@@ -107,7 +108,7 @@ def game_over_check(board):
 pygame.init()
 screen = pygame.display.set_mode((502, 500))
 screen.fill((100,100,100))
-screen.blit(get_image('.\\images\\connect_four_gridpng.png'), (125, 100))
+screen.blit(get_image('images/connect_four_gridpng.png'), (125, 100))
 done = False
 red_turn = True
 winner = 'None'
@@ -142,7 +143,7 @@ while not done:
 			done = True
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			
-			if valid_click(pygame.mouse.get_pos()) and red_turn:
+			if valid_click(pygame.mouse.get_pos()):
 				red_turn = add_piece(pygame.mouse.get_pos(), red_turn, game_board)
 			
 
